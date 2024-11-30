@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MPU6050 Head Tracking in A-Frame</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+      /* Hide the mouse pointer */
+      body {
+        cursor: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Define the camera with a cursor attached -->
+      <a-entity
+        id="camera"
+        camera
+        position="0 1.6 0"
+        wasd-controls
+        look-controls="pointerLockEnabled: true"
+      >
+        <!-- Cursor in the center of the screen -->
+        <a-cursor
+          id="cursor"
+          raycaster="objects: .clickable"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+          material="color: black; shader: flat"
+        ></a-cursor>
+      </a-entity>
+
+      <!-- Laboratory room walls -->
+      <a-box
+        position="0 1 0"
+        depth="10"
+        height="5"
+        width="10"
+        color="#C0C0C0"
+      ></a-box>
+
+      <!-- Floor -->
+      <a-plane
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="10"
+        height="10"
+        color="#E0E0E0"
+      ></a-plane>
+
+      <!-- Ceiling -->
+      <a-plane
+        position="0 5 0"
+        rotation="90 0 0"
+        width="10"
+        height="10"
+        color="#F8F8F8"
+      ></a-plane>
+
+      <!-- Whiteboard -->
+      <a-plane
+        position="0 2 4.5"
+        rotation="0 0 0"
+        width="4"
+        height="2"
+        color="white"
+        class="clickable"
+      >
+        <!-- Add a border for the whiteboard -->
+        <a-box
+          position="0 0 -0.01"
+          width="4.1"
+          height="2.1"
+          depth="0.05"
+          color="black"
+        ></a-box>
+      </a-plane>
+
+      <!-- Sample interactive object -->
+      <a-box
+        position="-2 1 -2"
+        depth="1"
+        height="1"
+        width="1"
+        color="blue"
+        class="clickable"
+      ></a-box>
+
+      <!-- Add a sky for background -->
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+
+    <script>
+      // Add click functionality to clickable objects
+      document.querySelectorAll(".clickable").forEach((el) => {
+        el.addEventListener("click", () => {
+          alert("You clicked on the object!");
+        });
+      });
+    </script>
+  </body>
+</html>
